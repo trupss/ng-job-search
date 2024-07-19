@@ -1,0 +1,8 @@
+<ul class="jobs">
+  <li *ngFor="let job of jobs$ | async; let i = index;">
+    <a routerLink="/job-details/{{job.id}}">
+      <span class="badge">{{job.id}}</span> {{job.title}}
+    </a>
+    <a (click)="toggleIcon(job.id, i)"><span [style.color]="changeColor[i]  ? '#0000F5': '#ffffff'" class="material-symbols-outlined">star</span></a>
+  </li>
+</ul>

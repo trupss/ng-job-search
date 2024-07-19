@@ -1,0 +1,7 @@
+<ul class="jobs">
+    <li *ngFor="let favJob of favoriteJobs$ | async">
+      <a routerLink="/job-details/{{favJob.id}}">
+        <span class="badge">{{favJob.id}}</span> {{favJob.title}}
+      </a>
+    </li>
+  </ul>
