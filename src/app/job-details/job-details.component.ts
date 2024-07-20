@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JobDetailsService } from '../service/job-details.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { JobDetails } from '../models';
@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './job-details.component.html',
   styleUrl: './job-details.component.css'
 })
-export class JobDetailsComponent {
+export class JobDetailsComponent implements OnInit{
   jobDetails$!: Observable<JobDetails>;
 
   constructor(

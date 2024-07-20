@@ -18,3 +18,9 @@ export interface Jobs {
     description: string,
     publishDate: Date,
   }
+
+  export interface TabLink {
+    index: number,
+    name: string,
+    link: string
+  }

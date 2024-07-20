@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FavouritesComponent } from './favourites.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('FavouritesComponent', () => {
   let component: FavouritesComponent;
@@ -8,7 +9,7 @@ describe('FavouritesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FavouritesComponent]
+      imports: [FavouritesComponent, HttpClientTestingModule]
     })
     .compileComponents();
     

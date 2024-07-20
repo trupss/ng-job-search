@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JobsService } from '../service/jobs.service';
 import { Observable, tap } from 'rxjs';
 import { Jobs } from '../models';
@@ -16,12 +16,12 @@ import { FavoriteJobsService } from '../service/favorite-jobs.service';
   styleUrl: './jobs.component.css'
 })
 
-export class JobsComponent {
+export class JobsComponent implements OnInit{
   jobs$!: Observable<Jobs[]>;
   existingEntries: number[]=[];
   favoriteJobs: Jobs[] = [];
   toggle: boolean = false;
-  changeColor= [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]; 
+  active = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]; 
 
   constructor(
     private jobsService: JobsService,
@@ -36,7 +36,7 @@ export class JobsComponent {
       tap((res) => {
         res.forEach((obj,i) => {
           if (this.existingEntries.length!==0 && this.existingEntries.indexOf(obj.id) !== -1) {
-            this.changeColor[i] = true;
+            this.active[i] = true;
             this.favoriteJobs.push(obj);
           }
         });
@@ -46,11 +46,11 @@ export class JobsComponent {
   }
 
   toggleIcon(obj: Jobs, jobID: number, i: number) {
-    this.changeColor[i] = !this.changeColor[i];
-    if(this.changeColor[i]===true) {
+    this.active[i] = !this.active[i];
+    if(this.active[i]===true) {
       this.addToFav(obj, jobID, this.existingEntries);
     }
-    if(this.changeColor[i]===false) {
+    if(this.active[i]===false) {
       this.removeFav(jobID, this.existingEntries);
     }
   }

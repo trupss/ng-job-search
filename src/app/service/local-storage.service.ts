@@ -21,9 +21,4 @@ export class LocalStorageService {
   removeList(key: string): void {
     localStorage.removeItem(key);
   }
-
-  // Clear all items from local storage
-  clear(): void {
-    localStorage.clear();
-  }
 }

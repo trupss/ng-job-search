@@ -16,12 +16,34 @@ describe('LocalStorageService', () => {
 
   it('should setList in Local storage', () => {
     // Arrange
-    const localStorageSpy = spyOn(localStorage, 'setItem');
+    const localStorageSpy = spyOn(Storage.prototype, 'setItem')
     
     // Act
     service.setList('key', 'value')
     
     // Assert
     expect(localStorageSpy).toHaveBeenCalledWith('key', 'value');
+  });
+
+  it('should getList in Local storage', () => {
+    // Arrange
+    const localStorageSpy = spyOn(Storage.prototype, 'getItem')
+    
+    // Act
+    service.getList('key')
+    
+    // Assert
+    expect(localStorageSpy).toHaveBeenCalledWith('key');
+  });
+
+  it('should removeList in Local storage', () => {
+    // Arrange
+    const localStorageSpy = spyOn(Storage.prototype, 'removeItem')
+    
+    // Act
+    service.removeList('key')
+    
+    // Assert
+    expect(localStorageSpy).toHaveBeenCalledWith('key');
   });
 });
