@@ -16,6 +16,8 @@
         </div>
       </div>
     </a>
-    <a (click)="toggleIcon(job, job.id, i)"><span [style.color]="active[i]  ? '#0000F5': '#ffffff'" class="material-symbols-outlined">star</span></a>
+    <div class="star-icon">
+      <a (click)="toggleIcon(job, job.id, i)"><span [style.color]="active[i]  ? '#0000F5': '#ffffff'" class="material-symbols-outlined">star</span></a>
+    </div>
   </li>
 </ul>

@@ -1,7 +1,9 @@
 <div class="container">
     <h2>Find your job</h2>
-    <div class="tab" *ngFor="let link of tabLinks">
-        <span [routerLink]="link.link" routerLinkActive>{{ link.name }}</span>
-    </div>
+    <ng-container *ngFor="let link of tabLinks">
+        <div class="tab" [routerLink]="link.link" routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>
+            {{ link.name }}
+        </div>
+    </ng-container>
     <router-outlet></router-outlet>
 </div>

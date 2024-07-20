@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FavoriteJobsService } from '../service/favorite-jobs.service';
-import { map, Observable, of, switchMap} from 'rxjs';
+import { map, Observable, of, switchMap, tap} from 'rxjs';
 import { Jobs } from '../models';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
@@ -46,6 +46,7 @@ export class FavouritesComponent implements OnInit{
     // }
   
     this.favoriteJobs$ = this.favoriteJobsService.state$.pipe(
+      tap(()=>console.log),
       switchMap((result) => {
         if (result !== null) {
           // First observable has emitted, do something with the result
@@ -84,5 +85,6 @@ export class FavouritesComponent implements OnInit{
     //     );
     //   }),
     //   );
+    
 }
 }

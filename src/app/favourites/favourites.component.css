@@ -1,12 +1,13 @@
 .jobs {
     display: block;
-    width: 70%;
+    width: 75%;
     margin: 0 auto;
     list-style-type: none;
     li {
         text-align: left;
         a {
             text-decoration: none;
+            color: #fff;
             span{
                 margin-right: 0;
             }

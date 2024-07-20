@@ -15,4 +15,9 @@
     width: 500px;
     margin: 2px;
     cursor: pointer;
+    padding: 10px;
+}
+
+.active {
+    background-color: blue;
 }
