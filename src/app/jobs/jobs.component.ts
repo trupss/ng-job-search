@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { JobsService } from '../jobs.service';
+import { JobsService } from '../service/jobs.service';
 import { Observable, tap } from 'rxjs';
 import { Jobs } from '../models';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LocalStorageService } from '../local-storage.service';
-import { FavoriteJobsService } from '../favorite-jobs.service';
+import { LocalStorageService } from '../service/local-storage.service';
+import { FavoriteJobsService } from '../service/favorite-jobs.service';
 
 
 @Component({
@@ -21,7 +21,6 @@ export class JobsComponent {
   existingEntries: number[]=[];
   favoriteJobs: Jobs[] = [];
   toggle: boolean = false;
-  iconColor: any;
   changeColor= [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]; 
 
   constructor(

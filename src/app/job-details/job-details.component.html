@@ -1,12 +1,14 @@
-<div *ngIf="jobDetails$ | async as detail" class="container">
-  <button type="button" (click)="goBack()">Back</button>
+<div *ngIf="jobDetails$ | async as detail" class="details-container">
+  <div class="back-button">
+    <button type="button" (click)="goBack()">Back</button>
+  </div>
   <div class="header">
-    <div>
+    <div class="img">
       <img [src]="detail.companyLogo"/>
     </div>
-    <div>
+    <div class="title">
       <h2>{{detail.title}}</h2>
-      <div>
+      <div class="badge">
         <span>{{detail.types}}</span>
         <span>{{detail.industries}}</span>
       </div>
@@ -16,6 +18,6 @@
     <span><b>Publish Date:</b> {{detail.publishDate}}</span>
     <span><b>Location:</b> {{detail.location}}</span>
     <span><b>Reference:</b> {{detail.reference}}</span>
-    <span><b>Description:</b> {{detail.description}}</span>
+    <span><b>Description:</b> <span [innerHTML]="detail.description"></span></span>
   </div>
 </div>

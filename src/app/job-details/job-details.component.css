@@ -1,5 +1,8 @@
 .details-container {
-    button {
+    margin:0 auto;
+    width:70%;
+    text-align: center;
+    .back-button {
        text-align: left; 
     }
     .header {
@@ -7,21 +10,13 @@
         div {
             display: inline-block;
             img {
-               width: fit-content; 
+               width: 20%; 
             }
-            a {
-                text-decoration: none;
-                span{
-                    margin-right: 0;
-                }
-            }
-            div { 
-                padding: 5px;
-                display: inline-block;
-                img {
-                    width:50px;
-                }
-            }
+        }
+        div.badge span{
+            background-color: rgb(50, 50, 114); 
+            margin-left: 10px;
+            padding: 5px;   
         }
     
     }

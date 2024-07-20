@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { JobDetailsService } from '../job-details.service';
+import { JobDetailsService } from '../service/job-details.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { JobDetails } from '../models';
 import { AsyncPipe, NgIf } from '@angular/common';
