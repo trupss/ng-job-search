@@ -1,7 +1,24 @@
-<ul class="jobs">
+<ul class="jobs" *ngIf="(favoriteJobs$ | async)?.length !==0; else elseBlock">
     <li *ngFor="let favJob of favoriteJobs$ | async">
       <a routerLink="/job-details/{{favJob.id}}">
-        <span class="badge">{{favJob.id}}</span> {{favJob.title}}
+        <div>
+          <img [src]="favJob.companyLogo"/>
+        </div>
+        <div>
+          <h3>{{favJob.title}}</h3> 
+          <div>
+            <span>
+             Company Name: {{favJob.companyName}}
+            </span>
+            <span>
+              Reference: {{favJob.reference}}
+            </span>
+          </div>
+        </div>
       </a>
     </li>
   </ul>
+<ng-template #elseBlock>
+    <div class="jobs">No Favorites added yet!</div>
+</ng-template>
+

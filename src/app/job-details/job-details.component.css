@@ -1,0 +1,35 @@
+.details-container {
+    button {
+       text-align: left; 
+    }
+    .header {
+        margin: 0 auto;
+        div {
+            display: inline-block;
+            img {
+               width: fit-content; 
+            }
+            a {
+                text-decoration: none;
+                span{
+                    margin-right: 0;
+                }
+            }
+            div { 
+                padding: 5px;
+                display: inline-block;
+                img {
+                    width:50px;
+                }
+            }
+        }
+    
+    }
+    .job-details {
+        span{
+            display: block;
+            text-align: left;
+        }
+    }
+}
+

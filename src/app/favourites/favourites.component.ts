@@ -1,25 +1,33 @@
 import { Component } from '@angular/core';
 import { FavoriteJobsService } from '../favorite-jobs.service';
-import { Observable } from 'rxjs';
+import { Observable, tap} from 'rxjs';
 import { Jobs } from '../models';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-favourites',
   standalone: true,
-  imports: [NgFor, AsyncPipe, RouterLink],
+  imports: [NgFor, NgIf, AsyncPipe, RouterLink],
   templateUrl: './favourites.component.html',
   styleUrl: './favourites.component.css'
 })
 export class FavouritesComponent {
-  favoriteJobs$!: Observable<Jobs[]>;
+  protected favoriteJobs$!: Observable<Jobs[]>;
+  existingEntries: any;
+  favoriteJobs: any;
 
   constructor(
-    private favoriteJobsService: FavoriteJobsService 
+    private favoriteJobsService: FavoriteJobsService,
+    private localStorage: LocalStorageService,
   ) {}
 
   ngOnInit() {
-   this.favoriteJobs$ = this.favoriteJobsService.getFavoriteJobs();
+    let existingfavList = this.localStorage.getList("favJobList");
+    this.existingEntries = (existingfavList==null)? [] : JSON.parse(existingfavList);
+    this.favoriteJobs$ = this.favoriteJobsService.state$.pipe(
+      tap(res => res.length===0)
+    );
   }
 }

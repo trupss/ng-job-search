@@ -1,9 +1,21 @@
-<div *ngIf="jobDetails$ | async as detail">
-    <h2>{{detail.id}} Details</h2>
-    <!-- <div><span>id: </span>{{hero.id}}</div>
+<div *ngIf="jobDetails$ | async as detail" class="container">
+  <button type="button" (click)="goBack()">Back</button>
+  <div class="header">
     <div>
-      <label for="hero-name">Hero name: </label>
-      <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name"/>
-    </div> -->
-    <button type="button" (click)="goBack()">go back</button>
+      <img [src]="detail.companyLogo"/>
+    </div>
+    <div>
+      <h2>{{detail.title}}</h2>
+      <div>
+        <span>{{detail.types}}</span>
+        <span>{{detail.industries}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="job-details">
+    <span><b>Publish Date:</b> {{detail.publishDate}}</span>
+    <span><b>Location:</b> {{detail.location}}</span>
+    <span><b>Reference:</b> {{detail.reference}}</span>
+    <span><b>Description:</b> {{detail.description}}</span>
+  </div>
 </div>

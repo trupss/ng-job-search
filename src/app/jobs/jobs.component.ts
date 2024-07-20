@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { JobsService } from '../jobs.service';
-import { Observable, pipe, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Jobs } from '../models';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { LocalStorageService } from '../local-storage.service';
 import { FavoriteJobsService } from '../favorite-jobs.service';
 
@@ -19,6 +19,7 @@ import { FavoriteJobsService } from '../favorite-jobs.service';
 export class JobsComponent {
   jobs$!: Observable<Jobs[]>;
   existingEntries: number[]=[];
+  favoriteJobs: Jobs[] = [];
   toggle: boolean = false;
   iconColor: any;
   changeColor= [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]; 
@@ -37,35 +38,36 @@ export class JobsComponent {
         res.forEach((obj,i) => {
           if (this.existingEntries.length!==0 && this.existingEntries.indexOf(obj.id) !== -1) {
             this.changeColor[i] = true;
-            let data = [];
-            data.push(obj)
-            this.favoriteJobsService.setFavoriteJobs(data);
-        }
-      });
-      })
+            this.favoriteJobs.push(obj);
+          }
+        });
+      }),
+      tap(() => this.favoriteJobsService.setFavoriteJobs(this.favoriteJobs))
     );
   }
 
-  toggleIcon(jobID: number, i: number) {
+  toggleIcon(obj: Jobs, jobID: number, i: number) {
     this.changeColor[i] = !this.changeColor[i];
     if(this.changeColor[i]===true) {
-      this.addToFav(jobID, this.existingEntries);
+      this.addToFav(obj, jobID, this.existingEntries);
     }
     if(this.changeColor[i]===false) {
       this.removeFav(jobID, this.existingEntries);
     }
   }
 
-  addToFav(id: number, existingEntries: number[]){
+  addToFav(obj: Jobs, id: number, existingEntries: number[]){
+    this.favoriteJobs.push(obj);
     existingEntries.push(id);
-    let y = existingEntries.filter((v,i,a)=>a.indexOf(v)==i);
-    let updateEntries = JSON.stringify(y);
-    this.localStorage.setList("favJobList", updateEntries);
+    let uniqueIds = existingEntries.filter((v,i,a)=>a.indexOf(v)==i);
+    this.localStorage.setList("favJobList", JSON.stringify(uniqueIds));
+    this.favoriteJobsService.setFavoriteJobs(this.favoriteJobs);
   }
 
   removeFav(id: number, existingEntries: number[]) {
+    this.favoriteJobs = this.favoriteJobs.filter((obj) => obj.id !==id);
     this.existingEntries = existingEntries.filter((e) => e !==id);
-    let updateEntries = JSON.stringify(this.existingEntries);
-    this.localStorage.setList("favJobList", updateEntries);
+    this.localStorage.setList("favJobList", JSON.stringify(this.existingEntries));
+    this.favoriteJobsService.setFavoriteJobs(this.favoriteJobs);
   }
 }

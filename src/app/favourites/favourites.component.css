@@ -1,0 +1,23 @@
+.jobs {
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    list-style-type: none;
+    li {
+        text-align: left;
+        a {
+            text-decoration: none;
+            span{
+                margin-right: 0;
+            }
+        }
+        div { 
+            padding: 5px;
+            display: inline-block;
+            img {
+                width:50px;
+            }
+        }
+    }
+
+}

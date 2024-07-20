@@ -4,7 +4,6 @@ export interface Jobs {
     title: string,
     companyLogo: string,
     reference: string,
-    favorite?:boolean
   }
   
   export interface JobDetails {

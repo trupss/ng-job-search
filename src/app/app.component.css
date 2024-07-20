@@ -1,0 +1,12 @@
+.container, h2 {
+    text-align: center;
+}
+
+.tab {
+    display: inline-block;
+    text-align: center;
+    background-color: #999;
+    width: 500px;
+    margin: 2px;
+    cursor: pointer;
+}
