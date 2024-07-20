@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FavoriteJobsService } from '../service/favorite-jobs.service';
-import { map, Observable, of, switchMap, tap} from 'rxjs';
+import { map, Observable, of, startWith, switchMap, tap} from 'rxjs';
 import { Jobs } from '../models';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
@@ -19,7 +19,7 @@ export class FavouritesComponent implements OnInit{
   existingEntries: number[]=[];
   favoriteJobs: Jobs[] = [];
   jobsList$!: Observable<Jobs[]>;
-  newJobsList$!: Observable<Jobs[]>;
+  idSet:number[] = [];
 
   constructor(
     private favoriteJobsService: FavoriteJobsService,
@@ -30,25 +30,11 @@ export class FavouritesComponent implements OnInit{
   ngOnInit() {
     let existingfavList = this.localStorage.getList("favJobList");
     this.existingEntries = (existingfavList==null)? [] : JSON.parse(existingfavList);
-
-    // this.favoriteJobs$ = this.favoriteJobsService.state$;
-    // if(!this.favoriteJobs$) {
-    //   this.favoriteJobs$ = this.jobsService.getJobsList().pipe(
-    //     map((jl) => {
-    //       jl.forEach((obj) => {
-    //         if(this.existingEntries.length!==0 && this.existingEntries.indexOf(obj.id) !== -1){
-    //           this.favoriteJobs.push(obj);
-    //         }
-    //       })
-    //       return this.favoriteJobs;
-    //     })
-    //   )
-    // }
   
     this.favoriteJobs$ = this.favoriteJobsService.state$.pipe(
-      tap(()=>console.log),
+      startWith([]),
       switchMap((result) => {
-        if (result !== null) {
+        if (result.length !== 0) {
           // First observable has emitted, do something with the result
           return of(result);
         } else {
@@ -57,7 +43,11 @@ export class FavouritesComponent implements OnInit{
             map((jl) => {
               jl.forEach((obj) => {
                 if(this.existingEntries.length!==0 && this.existingEntries.indexOf(obj.id) !== -1){
-                  this.favoriteJobs.push(obj);
+                  if(!this.idSet.includes(obj.id)){
+                    this.favoriteJobs.push(obj);
+                    this.idSet.push(obj.id)
+                  }
+                 
                 }
               })
               return this.favoriteJobs;
@@ -65,26 +55,6 @@ export class FavouritesComponent implements OnInit{
           )
         }
       }));
-
-    // this.favoriteJobs$ = this.favoriteJobsService.state$.pipe(
-    //   filter((val) => !!val),
-    //   switchMap((result) => {
-    //     return of(result);
-    //   }),
-    //   filter((val) => !val),
-    //   switchMap((result) => {
-    //     return this.jobsService.getJobsList().pipe(
-    //       map((jl) => {
-    //         jl.forEach((obj) => {
-    //           if(this.existingEntries.length!==0 && this.existingEntries.indexOf(obj.id) !== -1){
-    //             this.favoriteJobs.push(obj);
-    //           }
-    //         })
-    //         return this.favoriteJobs;
-    //       })
-    //     );
-    //   }),
-    //   );
     
 }
 }
